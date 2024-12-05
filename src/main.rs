@@ -3,7 +3,7 @@ use std::{fs::File, io::{BufRead, BufReader}, process::exit};
 
 fn main() {
     //file opening
-    let path="../input.txt";
+    let path=".txt";
     let file = match File::open(path) {
         Ok(file) =>file,
         Err(e)=>{print!("unable to open {} file, err: {}",path,e);
