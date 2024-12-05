@@ -4,9 +4,7 @@ use std::{
     process::exit,
 };
 
-fn main() {
-    //file opening
-    let path = "input.txt";
+fn read_file(path: &str) -> (Vec<i32>, Vec<i32>) {
     let file = match File::open(path) {
         Ok(file) => file,
         Err(e) => {
@@ -42,6 +40,10 @@ fn main() {
             }
         }
     }
+    (list1, list2)
+}
+
+fn part1(mut list1: Vec<i32>, mut list2: Vec<i32>) -> i32 {
     //sorting list
     // list1.sort();
     // list2.sort();
@@ -57,11 +59,21 @@ fn main() {
     // let sum:i32 = distances.into_iter().sum();
 
     //better aproach
-    let sum: i32 = list1
+    list1
         .iter()
         .zip(list2.iter())
         .map(|(x1, x2)| (x1 - x2).abs())
-        .sum();
+        .sum()
+}
 
-    println!("sum of distances: {}", sum)
+fn part2(mut list1: Vec<i32>, mut list2: Vec<i32>)->i32{
+    list1.iter().map(|&x| x*list2.iter().filter(|&&y| y==x).count() as i32).sum()
+}
+fn main() {
+    //file opening
+    let path = "input.txt";
+    let (list1, list2) = read_file(path);
+
+    //println!("sum of distances: {}", part1(list1, list2))
+    println!("similarity score: {}", part2(list1, list2))
 }
